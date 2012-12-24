@@ -25,6 +25,7 @@
 
 <target id="hxberkelium" output="${LIBPREFIX}hxberkelium${DBG}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
   <ext value=".ndll" unless="mobile"/>
+  <flag value="-L${BERKELIUM}" if="macos"/>
   <files id="berkelium"/>
   <lib name="-llibberkelium" if="macos" />
   <lib name="berkelium.lib" if="windows"/>

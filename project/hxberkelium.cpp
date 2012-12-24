@@ -6,27 +6,21 @@
 #define NEKO_COMPATIBLE
 #endif
 #include <hx/CFFI.h>
+#include <berkelium/Berkelium.hpp>
 
 #ifdef __cplusplus
 extern "C" 
 {
 #endif
 
-#ifndef HX_WINDOWS
-#	include <dlfcn.h>
-#else
-#	undef ERROR
-#	include <windows.h>
-#	define dlopen(l,p)		(void*)LoadLibrary(l)
-#	define dlsym(h,n)		GetProcAddress((HMODULE)h,n)
-#	define dlclose(h)		FreeLibrary((HMODULE)h)
-#endif
+value berkelium_init()
+{
+	Berkelium::init(Berkelium::FileString::empty());
+	return alloc_bool(true);
+}
 
-#if defined HX_WINDOWS
-	#define HXFFI_EXPORT __declspec(dllexport)
-#else
-  #define HXFFI_EXPORT __attribute__ ((__visibility__("default")))
-#endif
+DEFINE_PRIM(berkelium_init, 0);
+
 
 // Reference this to bring in all the symbols for the static library
 int hxberkelium_register_prims() { return 0; }
