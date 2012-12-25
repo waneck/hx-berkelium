@@ -27,7 +27,7 @@
   <ext value=".ndll" unless="mobile"/>
   <flag value="-L${BERKELIUM}" if="macos"/>
   <files id="berkelium"/>
-  <lib name="-llibberkelium" if="macos" />
+  <lib name="-lberkelium" if="macos" />
   <lib name="berkelium.lib" if="windows"/>
   <lib name="-llibberkelium" if="linux"/>
   <outdir name="../ndll/${BINDIR}"/>
