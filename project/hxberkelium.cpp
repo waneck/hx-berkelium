@@ -30,7 +30,7 @@ public:
 			delete context;
 			bk_window->setDelegate(this);
 			bk_window->resize(width, height);
-			bk_window->setTransparent(_usetrans);
+			bk_window->setTransparent(false);
 		}
 	
 		~NMETextureWindow() 
@@ -63,9 +63,23 @@ public:
 						int len = (bitmap_rect.right() - bitmap_rect.left()) * (bitmap_rect.bottom() - bitmap_rect.top()) * 4;
 						printf("len %i\n", len);
 						
-						buffer buf = alloc_buffer( 0 );
+						buffer buf = alloc_buffer_len( len );
 						printf("on paint 4\n");
-						buffer_append_sub(buf, (const char *) bitmap_in, len);
+						//buffer_append_sub(buf, (const char *) bitmap_in, len);
+						
+						char *mod_data = buffer_data(buf);
+						for(int i = 0; i < len; i += 4)
+						{
+							char b = bitmap_in[i];
+							char g = bitmap_in[i+1];
+							char r = bitmap_in[i+2];
+							char a = bitmap_in[i+3];
+							
+							mod_data[i] = a; //a
+							mod_data[i+1] = r; //r
+							mod_data[i+2] = g; //g
+							mod_data[i+3] = b; //b
+						}
 						printf("on paint 5\n");
 						
 						value args = alloc_array(5);
